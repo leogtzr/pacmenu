@@ -1,0 +1,8 @@
+pacmenu it's a script that helps to manage some things such as update some 
+package, delete, get info, etc, trough a interactive menu.
+
+pacmenu uses "Bash simple curses" from Patrice Ferlet to draw Windows in the emulator terminal.
+http://code.google.com/p/bashsimplecurses/
+
+To install or uninstall see the INSTALL file.
+
