@@ -175,7 +175,7 @@ EOF
 	}
 	
 	showWindow;
-	rm -f ./USO &> /dev/null	
+	rm -f ./USO
 }
 
 menu()
