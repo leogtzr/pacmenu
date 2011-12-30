@@ -1,0 +1,16 @@
+Extract pacmenu-1.0.tar.gz:
+$ tar -xzvf pacmenu-1.0.tar.gz
+
+Change to the new directory created:
+cd pacmenu-1.0/
+
+Help can be shown with:
+$ make help
+
+To install pacmenu (as root):
+# make -B install
+
+To uninstall (as root):
+# make uninstall
+
+
