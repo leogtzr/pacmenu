@@ -19,8 +19,7 @@ export LIBDIR
 
 temp=$*
 
-checkOptions()
-{
+checkOptions() {
 	args=`getopt cdih $temp 2> /dev/null`
 	[ $? != 0 ] && {
 		usage;
@@ -64,19 +63,20 @@ checkOptions()
 	done
 }
 
-viewdependencies()
-{
+viewdependencies() {
+	
 	name="$1"
 	n_dependencies=$(pacman -Qi "$1" | grep ^Depends* | sed "s/.*:\s\(.*\)$/\1/g" | wc -w);
 	echo -e "Dependencies [$n_dependencies]: " > ./temp_file
 	pacman -Qi "$name" | grep ^Depends* | sed "s/.*:\s\(.*\)$/\1/g" | tr ' ' '\n' | grep -v ^$ >> ./temp_file
-	main()
-	{
+	
+	main() {
 		window "$name - $(pacman -Qi "$name" | grep ^Version* | awk '{print $3}')" red
 		append_file ./temp_file
 		addsep
 		endwin
 	}
+	
 	showWindow;
 	# Borrar buffer...
 	rm -rf ./temp_file
@@ -85,36 +85,32 @@ viewdependencies()
 	
 }
 
-list()
-{
+list() {
 	pacman -Qi | grep ^Name* | awk '{print $3}'
 }
 
-numerate()
-{
+numerate() {
 	list | grep -n "^${1}$" | cut -f1 -d':'
 }
 
-exists()
-{
+exists() {
 	pacman -Qi "$1" &> /dev/null && return 0 || return 1
 }
 
-count()
-{
+count() {
 	pacman -Qi | grep ^Name* | wc -l
 }
 
-getch()
-{  
+getch() {  
+	
 	OLD_STTY=`stty -g`  
 	stty cbreak -echo  
 	GETCH=`dd if=/dev/tty bs=1 count=1 2>/dev/null`  
 	stty $OLD_STTY  
 }   
 	
-showWindow()
-{
+showWindow() {
+	
 	term_init
 	init_chars
 	tput cup 0 0 >> $BUFFER
@@ -123,16 +119,15 @@ showWindow()
 	refresh
 }
 
-showPackage()
-{
+showPackage() {
 	pacman -Qi "$1" > temp_file
 	echo -e "`numerate "$1"` of `count` packages" >> temp_file
 	
 	name="$1"			
 
 	source $LIBDIR/simple_curses.sh
-	main()
-	{
+	
+	main() {
 		window "$name - $(pacman -Qi ${name} | grep ^Version* | awk '{print $3}')" red
 		append_file ./temp_file
 		addsep
@@ -147,8 +142,7 @@ showPackage()
 
 }
 
-usage()
-{
+usage() {
 		
 	source $LIBDIR/simple_curses.sh
 	
@@ -168,8 +162,7 @@ Leo Gutierrez Ramirez.
 leogutierrezramirez@gmail.com
 EOF
 	
-	main()
-	{
+	main() {
 		window "Usage" green
 		append_file ./USO
 		endwin
@@ -179,8 +172,7 @@ EOF
 	rm -f ./USO
 }
 
-menu()
-{
+menu() {
 	# Encerramos al usuario en un bucle hasta que nos dé un paquete que exista.
 		while [[ 1 ]];
 		do
