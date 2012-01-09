@@ -1,12 +1,13 @@
-#!/bin/bash
-#simple curses library to create windows on terminal
-#
-#author: Patrice Ferlet metal3d@copix.org
-#license: new BSD
-#
-#create_buffer patch by Laurent Bachelier
+#!/usr/bin/env bash
 
-create_buffer(){
+# simple curses library to create windows on terminal
+#
+# author: Patrice Ferlet metal3d@copix.org
+# license: new BSD
+#
+# create_buffer patch by Laurent Bachelier
+
+create_buffer() {
   # Try to use SHM, then $TMPDIR, then /tmp
   if [ -d "/dev/shm" ]; then
     BUFFER_DIR="/dev/shm"
@@ -35,38 +36,37 @@ LASTWINPOS=0
 
 #call on SIGINT and SIGKILL
 #it removes buffer before to stop
-on_kill()
-{
+on_kill() {
     rm -rf $BUFFER
-    
 }
+
 trap on_kill SIGINT SIGTERM
 
 #initialize terminal
-term_init(){
+term_init() {
     POSX=0
     POSY=0
     tput clear >> $BUFFER
 }
 
 #change line
-_nl(){
+_nl() {
     #POSY=$((POSY+1))
     ((POSY++));
     tput cup $POSY $POSX >> $BUFFER 
 }
 
-move_up(){
+move_up() {
     set_position $POSX 0
 }
 
-col_right(){
+col_right() {
     left=$((LASTCOLS+POSX))
     set_position $left $LASTWINPOS
 }
 
 #put display coordinates
-set_position(){
+set_position() {
     POSX=$1
     POSY=$2
 }
@@ -80,7 +80,7 @@ _SEPL="\033(0t\033(B"
 _SEPR="\033(0u\033(B"
 _VLINE="\033(0x\033(B"
 _HLINE="\033(0q\033(B"
-init_chars(){    
+init_chars() {    
     if [[ "$ASCIIMODE" != "" ]]; then
         if [[ "$ASCIIMODE" == "ascii" ]]; then
             _TL="+"
@@ -96,7 +96,7 @@ init_chars(){
 }
 
 #Append a windo on POSX,POSY
-window(){
+window() {
     LASTWINPOS=$POSY
     title=$1
     color=$2      
