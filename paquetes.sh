@@ -11,7 +11,7 @@
 #  REQUIREMENTS:  dmenu, pacman
 #          BUGS:  ---
 #         NOTES:  ---
-#        AUTHOR: Leo Gutiérrez R. leogutierrezramirez@gmail.com (2011), 
+#        AUTHOR: Leo Gutiérrez R. leogutierrezramirez@gmail.com (2011)
 #===============================================================================
 
 LIBDIR=/usr/local/lib
@@ -19,7 +19,7 @@ export LIBDIR
 
 temp=$*
 
-checkOptions() {
+function checkOptions() {
 	args=`getopt cdih $temp 2> /dev/null`
 	[ $? != 0 ] && {
 		usage;
@@ -85,23 +85,23 @@ viewdependencies() {
 	
 }
 
-list() {
+function list() {
 	pacman -Qi | grep ^Name* | awk '{print $3}'
 }
 
-numerate() {
+function numerate() {
 	list | grep -n "^${1}$" | cut -f1 -d':'
 }
 
-exists() {
+function exists() {
 	pacman -Qi "$1" &> /dev/null && return 0 || return 1
 }
 
-count() {
+function count() {
 	pacman -Qi | grep ^Name* | wc -l
 }
 
-getch() {  
+function getch() {  
 	
 	OLD_STTY=`stty -g`  
 	stty cbreak -echo  
@@ -109,7 +109,7 @@ getch() {
 	stty $OLD_STTY  
 }   
 	
-showWindow() {
+function showWindow() {
 	
 	term_init
 	init_chars
@@ -119,7 +119,7 @@ showWindow() {
 	refresh
 }
 
-showPackage() {
+function showPackage() {
 	pacman -Qi "$1" > temp_file
 	echo -e "`numerate "$1"` of `count` packages" >> temp_file
 	
@@ -142,7 +142,7 @@ showPackage() {
 
 }
 
-usage() {
+function usage() {
 		
 	source $LIBDIR/simple_curses.sh
 	
@@ -172,7 +172,7 @@ EOF
 	rm -f ./USO
 }
 
-menu() {
+function menu() {
 	# Encerramos al usuario en un bucle hasta que nos dé un paquete que exista.
 		while [[ 1 ]];
 		do
