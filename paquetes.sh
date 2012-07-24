@@ -63,7 +63,7 @@ function checkOptions() {
 	done
 }
 
-viewdependencies() {
+function viewdependencies() {
 	
 	name="$1"
 	n_dependencies=$(pacman -Qi "$1" | grep ^Depends* | sed "s/.*:\s\(.*\)$/\1/g" | wc -w);
@@ -159,7 +159,7 @@ Options :
 
 Author:
 Leo Gutierrez Ramirez.
-leogutierrezramirez@gmail.com
+leorocko13@hotmail.com
 EOF
 	
 	main() {
