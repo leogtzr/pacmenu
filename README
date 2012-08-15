@@ -1,5 +1,5 @@
 pacmenu it's a script that helps to manage some things such as update 
-package, delete, get info, etc, trought an interactive menu.
+package, delete, get info from the arch packages and etc, all this trought an interactive menu.
 
 pacmenu uses "Bash simple curses" from Patrice Ferlet to draw Windows in the emulator terminal.
 http://code.google.com/p/bashsimplecurses/
